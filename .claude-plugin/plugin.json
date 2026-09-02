@@ -1,0 +1,16 @@
+{
+  "name": "dunder-mifflin",
+  "description": "An Office-themed agentic development pipeline. Michael orchestrates seven subagents to carry a ticket from intake through product context, reproduction, planning, adversarial design review, TDD implementation and code critique, to a reviewed working-tree diff.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Naman Dembla"
+  },
+  "keywords": [
+    "workflow",
+    "orchestration",
+    "subagents",
+    "tdd",
+    "code-review",
+    "ticket"
+  ]
+}

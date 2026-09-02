@@ -1,0 +1,11 @@
+# Pipeline working state, written into whichever repo is being worked on.
+# Listed here so the pipeline's own repo stays clean if it is ever run on itself.
+.tickets/
+
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Claude Code local session state
+.claude/worktrees/
+.claude/settings.local.json

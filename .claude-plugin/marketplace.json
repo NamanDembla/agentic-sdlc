@@ -1,0 +1,15 @@
+{
+  "name": "agentic-sdlc",
+  "description": "A multi-agent software development pipeline for Claude Code",
+  "owner": {
+    "name": "Naman Dembla"
+  },
+  "plugins": [
+    {
+      "name": "dunder-mifflin",
+      "description": "An Office-themed agentic development pipeline: ticket in, reviewed diff out.",
+      "version": "0.1.0",
+      "source": "./"
+    }
+  ]
+}
