@@ -7,7 +7,23 @@ Hand it a ticket; get back a planned, tested, twice-reviewed working tree.
 > The full architecture, every decision, and what was rejected — with diagrams.
 > Start there if you want the *why*.
 
----
+## In practice
+
+Roughly **30+ tickets** over **four months** of use — five counting development.
+Mostly bugs and features in fairly even measure; spikes are the smallest slice,
+which is why the spike route is also the simplest.
+
+Structurally, and checkable by reading the repo:
+
+| | |
+|---|---|
+| Agents | 8 — one orchestrator, seven subagents |
+| Ticket routes | 3 — spike, bug, feature |
+| Human gates | 2 — the plan, and the finished work |
+| Agents that can write production code | 1 |
+| Reviewers with any write tool | 0 |
+| Loop ceilings | 2 plan reviews · 3 TDD cycles · 2 code reviews |
+| Artifacts written per ticket | 9 |
 
 ## What this is
 
@@ -72,6 +88,39 @@ two review lenses. Everything downstream of a good plan runs on Sonnet.
 
 Each of these is argued properly in the [design record](https://claude.ai/code/artifact/c0bc2328-7651-45bb-b44d-1523ac0dded3).
 
+## How it grew
+
+Nothing here was designed up front. Each stage was added because the version before
+it failed in a specific, repeated way:
+
+1. **Code review** — the original tool, and still the highest-value single step.
+2. **Architecture review** — because reviewing code says nothing about whether the
+   approach was right, or needed at all.
+3. **Code writing** — once the plan was being challenged properly, implementing
+   against it was the obvious next step.
+4. **TDD** — because code written without tests first drifts toward whatever is
+   easiest to make pass.
+5. **Context fetching** — because everything above was quietly guessing at product
+   behaviour that was already written down in the wiki.
+
+## What was hard to get right
+
+The four things that took the most iteration, and what each one is actually fighting:
+
+- **The BLOCKED protocol.** Subagents can't prompt the user, so "ask, don't assume"
+  had to stop being an instruction and become plumbing. An agent that lacks
+  information writes its partial work, files its questions, and returns `BLOCKED`.
+  Making that more attractive than guessing was the single hardest part.
+- **Angela's prompt.** An adversarial reviewer oscillates between rubber-stamping
+  and manufacturing findings to look thorough. Both are useless. Getting her to
+  approve sound work *and* reject unsound work took more attempts than anything else.
+- **Hard iteration caps.** Without a ceiling, a fix-and-review loop will happily run
+  forever. The caps are deliberately low, and reaching one is a stop that surfaces
+  evidence rather than a silent pass.
+- **A fresh agent every invocation.** Reusing a context is tempting and always wrong
+  — reviewers start confusing one run with another. Every re-run is a new agent, fed
+  by files.
+
 ## Ticket state
 
 Every stage reads and writes files in the repo you are working on, ignored via
@@ -108,10 +157,7 @@ Michael classifies the ticket as a **spike** (no code — terminates at brainsto
 a **bug** (adds a consent-gated reproduction stage), or a **feature** (straight to
 planning), and routes accordingly.
 
-## Status
-
-Version 0.1.0. Complete and installable; not yet run end to end against a production
-ticket.
+## Configuration
 
 Two integrations are stubbed behind their contracts:
 
