@@ -4,7 +4,8 @@ Every artifact carries its **reasoning**, not just its conclusion. The rejected
 options and the "why" are the point — they are what makes the trail readable six
 weeks later.
 
-All artifacts live in `.tickets/<TICKET-ID>/`.
+All artifacts live in `.tickets/<TICKET-ID>/`, except Pam's context library,
+which is shared by every ticket and lives in `.tickets/_context/`.
 
 ---
 
@@ -43,24 +44,67 @@ All artifacts live in `.tickets/<TICKET-ID>/`.
 ```markdown
 # Product context for <TICKET-ID>
 
-**Wiki version:** <sha> pulled <timestamp>
-                | <sha> read in place, uncommitted changes present
-                | local directory, not version controlled
+## Sources read
+| Source | Kind | Weight | Version read |
+|---|---|---|---|
+| <name> | git \| folder \| artifact | authoritative \| supporting \| background | <sha> \| <sha>, uncommitted changes \| unversioned \| dated <date> |
+
+## Sources unavailable
+<source — reason. Omit the section when there are none.>
 
 ## Relevant features
 ### <feature name>
 <summary>
-> Source: `<path/in/wiki.md>` — "<heading>"
+> Source: <name> · `<path>` — "<heading>" · <weight>
 
 ## Constraints and prior decisions
-<things the wiki says must remain true>
+<what the sources say must remain true, each cited>
+
+## Conflicts
+### <topic>
+- <name> · `<path>` — "<heading>" (<weight>, <version>): <what it says>
+- <name> · `<path>` lines <a>–<b> (<weight>, <version>): <what it says>
+
+Newer: <name>. Not resolved — needs a decision.
 
 ## Not found
-<what was searched for and genuinely is not in the wiki — this matters>
+<what was searched for in every source and is genuinely absent — this matters>
 ```
 
-Every claim carries a citation to a wiki file and heading. An uncited claim is a
-guess, and guesses are forbidden.
+Every claim carries a citation: source name, file path, and heading — or a line
+range for plain text — plus the source's weight. An uncited claim is a guess, and
+guesses are forbidden.
+
+---
+
+## sources.md — PAM
+
+The context library's registry, at `.tickets/_context/sources.md`. One entry per
+source. Pam writes entries; the user may edit any of them.
+
+```markdown
+# Context sources
+
+## <name>
+- kind: git | folder | artifact
+- location: <git URL | absolute folder path | artifacts/<YYYY-MM-DD>-<slug>.<ext>>
+- type: wiki | spec | decision | meeting-notes | transcript | chat | doc | other
+- weight: authoritative | supporting | background
+- weight-reason: default for type <type> | user: <their words>
+- dated: <YYYY-MM-DD> | <YYYY-MM-DD> (date added)     # artifacts only
+- added: <YYYY-MM-DD>
+- last-read: <YYYY-MM-DD> @ <version> | never
+- notes: <durable facts about this source, user-approved; empty if none>
+```
+
+| Type | Default weight |
+|---|---|
+| `wiki`, `spec`, `decision` | authoritative |
+| `meeting-notes`, `transcript`, `doc` | supporting |
+| `chat`, `other` | background |
+
+A `weight-reason` starting `user:` marks a weight the user set. Pam never
+changes it.
 
 ---
 
@@ -197,3 +241,6 @@ The test: *will this still be true in three months?*
 Agents never write these files. They propose lines in their result; Michael shows
 the user at the final gate; only accepted lines are written. Cap each file at
 roughly 40 lines so growth forces curation instead of accretion.
+
+Pam has no `_memory` file. Her durable facts are about sources, so accepted ones
+go into that source's `notes` field in `.tickets/_context/sources.md`.
