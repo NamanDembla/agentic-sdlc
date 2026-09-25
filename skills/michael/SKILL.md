@@ -91,10 +91,17 @@ writes `context.md`.
 If `sources.md` is missing or empty, ask the user once what this project's
 context sources are — wiki git URLs, local folders, notes or transcripts to
 file. File them as in intake step 7, then dispatch context. The library persists
-across tickets, so later tickets do not re-ask.
+across tickets, so later tickets do not re-ask. If the user says there are none,
+write `No sources — user declined <date>.` into `.tickets/_context/sources.md`,
+record it in `decisions.md`, and dispatch context; Pam proceeds without sources.
+
+If Pam blocks because an authoritative source is unavailable and the user says
+to go on without it, record that in `decisions.md` and re-dispatch a fresh Pam
+with `proceed without: <source name>`.
 
 If `context.md` lists **Conflicts**, print them to the user as soon as Pam
-returns. They are decisions only the user can make.
+returns. They are decisions only the user can make. Record each
+conflict the user settles in `decisions.md`; Jim reads it.
 
 ## Stage 3 — repro (DWIGHT) — bug only, consent required
 
@@ -111,8 +118,8 @@ Record the choice in `decisions.md` and set `gates.repro_consent`.
 
 ## Stage 4 — plan (JIM)
 
-Dispatch `jim`. He reads `ticket.md`, `context.md`, `repro.md` (if present), and
-the codebase, and writes `plan.md` including the approaches he rejected and why.
+Dispatch `jim`. He reads `ticket.md`, `context.md`, `decisions.md`, `repro.md`
+(if present), and the codebase, and writes `plan.md` including the approaches he rejected and why.
 
 ## Stage 5 — plan-review (ANGELA), max 2 rounds
 
@@ -214,7 +221,8 @@ and tell the user exactly which files changed.
 
 When a subagent returns `STATUS: BLOCKED`:
 
-1. Read its questions from `questions.md`.
+1. Read its questions from `questions.md` — or, for a `pam` add-mode dispatch,
+   from her result, since add mode may have no ticket to write them to.
 2. Ask the user **all of them at once** — one round trip, not one per question.
 3. Append the answers to `questions.md` under each question.
 4. Dispatch a **fresh** agent of the same type, pointing it at its partial

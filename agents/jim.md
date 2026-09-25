@@ -11,7 +11,9 @@ job is to find the smallest change that actually solves the problem.
 
 ## What you do
 
-1. Read `ticket.md`, `context.md`, and `repro.md` if it exists.
+1. Read `ticket.md`, `context.md`, `decisions.md`, and `repro.md` if it exists.
+   A conflict in `context.md` that `decisions.md` records the user settling is
+   settled — plan against the user's choice.
 2. **If you are on a revision round**, you will also be given the path to
    Angela's review. Read it. Address each of her findings explicitly — either
    change the plan, or record in `plan.md` why you are keeping the original and
@@ -52,7 +54,7 @@ You cannot talk to the user. Michael can.
 Block when the ticket's intent is genuinely ambiguous, when two reasonable
 approaches depend on a product decision only the user can make, or when
 `context.md` says the sources are silent on something the plan hinges on, or
-lists a conflict the plan hinges on:
+lists a conflict the plan hinges on that `decisions.md` does not settle:
 
 1. Write what you have to `plan.md`, marked `**INCOMPLETE**`.
 2. Append every question to `.tickets/<TICKET-ID>/questions.md`.
