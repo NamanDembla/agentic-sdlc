@@ -73,21 +73,35 @@ After **every** stage: update `state.json`, append to `worklog.md`. Then proceed
    ask the user — do not guess.
 5. Write `ticket.md` using `references/artifact-templates.md`.
 6. Write `state.json`. Append to `decisions.md`: the classification and why.
+7. **File anything handed over with the ticket.** If the user attached notes,
+   transcripts, docs, folders or wiki URLs, save pasted text verbatim to
+   `.tickets/_context/inbox/<YYYYMMDDTHHMMSSZ>.md`, dispatch `pam` with
+   `mode: add`, the paths and the user's remarks about them, and print the lines
+   she returns.
 
 Do not ask the user to confirm intake — they chose not to gate here. Print a
 three-line summary (type, problem, deliverables) and move on.
 
 ## Stage 2 — context (PAM)
 
-Dispatch `pam`. Prompt: ticket folder path, the wiki repo location, and the
-instruction to read `ticket.md`.
+Dispatch `pam` with `mode: context` and the ticket folder path. She reads
+`ticket.md` and every source registered in `.tickets/_context/sources.md`, and
+writes `context.md`.
 
-Pam establishes she is reading the current wiki before reading anything. A wiki
-that tracks a remote is pulled fresh every run; one that is a local repository
-with no upstream, or a plain directory, is read in place and reported as such.
+If `sources.md` is missing or empty, ask the user once what this project's
+context sources are — wiki git URLs, local folders, notes or transcripts to
+file. File them as in intake step 7, then dispatch context. The library persists
+across tickets, so later tickets do not re-ask. If the user says there are none,
+write `No sources — user declined <date>.` into `.tickets/_context/sources.md`,
+record it in `decisions.md`, and dispatch context; Pam proceeds without sources.
 
-If the wiki location is unknown, ask the user once and record the answer in
-`decisions.md` so later tickets don't re-ask.
+If Pam blocks because an authoritative source is unavailable and the user says
+to go on without it, record that in `decisions.md` and re-dispatch a fresh Pam
+with `proceed without: <source name>`.
+
+If `context.md` lists **Conflicts**, print them to the user as soon as Pam
+returns. They are decisions only the user can make. Record each
+conflict the user settles in `decisions.md`; Jim reads it.
 
 ## Stage 3 — repro (DWIGHT) — bug only, consent required
 
@@ -104,8 +118,8 @@ Record the choice in `decisions.md` and set `gates.repro_consent`.
 
 ## Stage 4 — plan (JIM)
 
-Dispatch `jim`. He reads `ticket.md`, `context.md`, `repro.md` (if present), and
-the codebase, and writes `plan.md` including the approaches he rejected and why.
+Dispatch `jim`. He reads `ticket.md`, `context.md`, `decisions.md`, `repro.md`
+(if present), and the codebase, and writes `plan.md` including the approaches he rejected and why.
 
 ## Stage 5 — plan-review (ANGELA), max 2 rounds
 
@@ -197,6 +211,9 @@ Then handle memory: each agent may have proposed entries for `_memory/<agent>.md
 Show the user the proposed lines and let them accept or reject each. Only write
 accepted lines. A wrong memory entry silently poisons every future ticket.
 
+Pam's proposals are notes on a named source: write accepted ones into that
+entry's `notes` field in `.tickets/_context/sources.md`, not into `_memory/`.
+
 Set `gates.final_approved`, stage to `done`. Leave the working tree uncommitted
 and tell the user exactly which files changed.
 
@@ -204,7 +221,8 @@ and tell the user exactly which files changed.
 
 When a subagent returns `STATUS: BLOCKED`:
 
-1. Read its questions from `questions.md`.
+1. Read its questions from `questions.md` — or, for a `pam` add-mode dispatch,
+   from her result, since add mode may have no ticket to write them to.
 2. Ask the user **all of them at once** — one round trip, not one per question.
 3. Append the answers to `questions.md` under each question.
 4. Dispatch a **fresh** agent of the same type, pointing it at its partial

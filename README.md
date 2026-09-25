@@ -59,7 +59,7 @@ MICHAEL      PAM        DWIGHT       JIM        ANGELA          you approve
 | Agent | Role | Model | Source access |
 |---|---|---|---|
 | **Michael** | Orchestrator. The only agent that talks to you. | your session | delegates |
-| **Pam** | Product-wiki context, cited to file and heading | Sonnet | read only |
+| **Pam** | Keeps the context library; product context cited to source, file and heading | Sonnet | read only |
 | **Dwight** | Reproduction, evidence, affected code | Sonnet | read only |
 | **Jim** | Planning; approaches considered and rejected | Opus | read only |
 | **Angela** | Architecture, necessity, regressions vs. the design | Opus | **no write tools** |
@@ -159,12 +159,14 @@ planning), and routes accordingly.
 
 ## Configuration
 
-Two integrations are stubbed behind their contracts:
+Two integrations need setting up:
 
 - **Jira intake** needs an MCP server name. Pasted text and GitHub issue URLs work today.
-- **Pam's product wiki** needs a path. A clone that tracks a remote is pulled fresh
-  every run; a local repository with no upstream, or a plain folder of markdown, is
-  read in place and reported as such. Only the path changes.
+- **Pam's context library** starts empty. Give her sources with `/pam-add` — wiki
+  git URLs, local folders of markdown or text, or pasted notes and transcripts —
+  or let Michael ask on the first ticket. Each source gets a weight
+  (authoritative, supporting, background) that you can override; the registry is
+  `.tickets/_context/sources.md`.
 
 ## Layout
 
@@ -172,7 +174,7 @@ Two integrations are stubbed behind their contracts:
 .claude-plugin/   plugin and marketplace manifests
 agents/           seven subagent definitions
 skills/michael/   orchestrator, state schema, artifact templates
-skills/           standalone review wrappers, senior-engineer-critique
+skills/           standalone review wrappers, pam-add, senior-engineer-critique
 ```
 
 ## License

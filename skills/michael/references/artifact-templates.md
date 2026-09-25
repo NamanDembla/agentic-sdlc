@@ -4,7 +4,8 @@ Every artifact carries its **reasoning**, not just its conclusion. The rejected
 options and the "why" are the point — they are what makes the trail readable six
 weeks later.
 
-All artifacts live in `.tickets/<TICKET-ID>/`.
+All artifacts live in `.tickets/<TICKET-ID>/`, except Pam's context library,
+which is shared by every ticket and lives in `.tickets/_context/`.
 
 ---
 
@@ -40,27 +41,30 @@ All artifacts live in `.tickets/<TICKET-ID>/`.
 
 ## context.md — PAM
 
-```markdown
-# Product context for <TICKET-ID>
+Format defined in `agents/pam.md`, under *Formats*, so Pam carries it with her.
+In short: the sources read and their versions, sources unavailable, relevant
+features, constraints, conflicts between sources (reported, never settled), and
+what was not found. Every claim cites source name, file, and heading or line
+range, plus the source's weight.
 
-**Wiki version:** <sha> pulled <timestamp>
-                | <sha> read in place, uncommitted changes present
-                | local directory, not version controlled
+---
 
-## Relevant features
-### <feature name>
-<summary>
-> Source: `<path/in/wiki.md>` — "<heading>"
+## sources.md — PAM
 
-## Constraints and prior decisions
-<things the wiki says must remain true>
+The context library's registry, at `.tickets/_context/sources.md`, shared by
+every ticket. Format defined in `agents/pam.md`, under *Formats*. One entry per
+source: kind (`git` | `folder` | `artifact`), location, type, weight
+(`authoritative` | `supporting` | `background`) and the reason for it, dates,
+and user-approved notes. The user may edit any entry.
 
-## Not found
-<what was searched for and genuinely is not in the wiki — this matters>
-```
+| Type | Default weight |
+|---|---|
+| `wiki`, `spec`, `decision` | authoritative |
+| `meeting-notes`, `transcript`, `doc` | supporting |
+| `chat`, `other` | background |
 
-Every claim carries a citation to a wiki file and heading. An uncited claim is a
-guess, and guesses are forbidden.
+A `weight-reason` starting `user:` marks a weight the user set. Pam never
+changes it.
 
 ---
 
@@ -197,3 +201,6 @@ The test: *will this still be true in three months?*
 Agents never write these files. They propose lines in their result; Michael shows
 the user at the final gate; only accepted lines are written. Cap each file at
 roughly 40 lines so growth forces curation instead of accretion.
+
+Pam has no `_memory` file. Her durable facts are about sources, so accepted ones
+go into that source's `notes` field in `.tickets/_context/sources.md`.

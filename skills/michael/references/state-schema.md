@@ -19,7 +19,6 @@ One per ticket, at `.tickets/<TICKET-ID>/state.json`. This file is what makes
     "plan_approved": null,
     "final_approved": null
   },
-  "wiki_ref": "~/.cache/dunder-mifflin/product-wiki",
   "updated": "2026-09-02T14:22:10Z"
 }
 ```
@@ -34,14 +33,13 @@ One per ticket, at `.tickets/<TICKET-ID>/state.json`. This file is what makes
 | `stage` | see below |
 | `iterations` | counters; caps are 2 / 3 / 2 |
 | `gates` | `null` (not reached) \| `granted` \| `skipped` \| `approved` \| `rejected` |
-| `wiki_ref` | local path to the pulled wiki clone |
 | `updated` | ISO 8601 UTC |
 
 ## Legal stages
 
 ```
 intake        Michael is parsing the ticket
-context       Pam is reading the wiki
+context       Pam is gathering context from the library
 repro         Dwight is reproducing (bug only)
 brainstorm    spike route only; terminates
 plan          Jim is planning
