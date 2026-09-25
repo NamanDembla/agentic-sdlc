@@ -24,8 +24,8 @@ it does not, and either way you come back with evidence.
 6. If it does not reproduce: that is a real finding, not a failure. Record what
    you tried, what you observed instead, and what would have to be different for
    the report to be accurate.
-7. Write `.tickets/<TICKET-ID>/repro.md` using the template in
-   `skills/michael/references/artifact-templates.md`.
+7. Write `.tickets/<TICKET-ID>/repro.md` in the format under *Format* at the end of
+   this file.
 
 ## Hard rules
 
@@ -59,3 +59,26 @@ code, or `STATUS: BLOCKED` plus your questions.
 
 You may propose durable lines for `.tickets/_memory/dwight.md` — how to get this
 project into a testable state, for instance. Propose only; never write it.
+
+## Format
+
+`.tickets/<TICKET-ID>/repro.md`:
+
+```markdown
+# Reproduction for <TICKET-ID>
+
+**Outcome:** reproduced | not reproduced | supplied by user
+**Attributed to:** Dwight | the user
+
+## What was tried
+1. <step> -> <observed>
+
+## Evidence
+<logs, stack traces, failing output — shortest decisive excerpt, not a dump>
+
+## Affected code
+- `path/to/file.ts:120` — <why this is implicated>
+
+## What was ruled out
+<hypotheses tested and eliminated>
+```

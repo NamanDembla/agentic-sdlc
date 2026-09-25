@@ -63,74 +63,32 @@ and user-approved notes. The user may edit any entry.
 | `meeting-notes`, `transcript`, `doc` | supporting |
 | `chat`, `other` | background |
 
-A `weight-reason` starting `user:` marks a weight the user set. Pam never
-changes it.
+A `weight-reason` or `type-reason` starting `user:` marks a value the user set.
+Pam never replaces it with a default or inferred one; only the user changes it.
 
 ---
 
 ## repro.md — DWIGHT
 
-```markdown
-# Reproduction for <TICKET-ID>
-
-**Outcome:** reproduced | not reproduced | supplied by user
-**Attributed to:** Dwight | the user
-
-## What was tried
-1. <step> -> <observed>
-
-## Evidence
-<logs, stack traces, failing output — shortest decisive excerpt, not a dump>
-
-## Affected code
-- `path/to/file.ts:120` — <why this is implicated>
-
-## What was ruled out
-<hypotheses tested and eliminated>
-```
+Format defined in `agents/dwight.md`, under *Format*, so Dwight carries it
+with him: outcome and attribution, what was tried, evidence, affected code, and
+what was ruled out.
 
 ---
 
 ## plan.md — JIM
 
-```markdown
-# Plan for <TICKET-ID>
-
-## Approaches considered
-
-### A. <name>  [CHOSEN]
-<how it works>
-**Why chosen:** <reason>
-
-### B. <name>  [rejected]
-**Why rejected:** <reason — this section is not optional>
-
-## Change list
-| File | Change | Why |
-|---|---|---|
-
-## Risks and regressions
-<what this could break; Angela checks the diff against this list>
-
-## Out of scope
-<what this deliberately does not do>
-```
+Format defined in `agents/jim.md`, under *Format*, so Jim carries it with him:
+approaches considered (the chosen one and every rejected one, with why), a
+file-level change list, risks and regressions, and out of scope.
 
 ---
 
 ## tests.md — TOBY
 
-```markdown
-# Test plan for <TICKET-ID>
-
-**Test command:** `<resolved from package.json>`
-
-| Test | File | Acceptance criterion | Status |
-|---|---|---|---|
-
-## Why these and not more
-<what was deliberately not tested, and why>
-```
+Format defined in `agents/toby.md`, under *Format*, so Toby carries it with
+him: the resolved test command, each test mapped to an acceptance criterion,
+and what was deliberately not tested.
 
 ---
 
@@ -138,23 +96,10 @@ changes it.
 
 Reviewers have no write tools; they return findings and Michael persists them.
 
-```markdown
-# <ANGELA|OSCAR> — <plan|code> review, round <NN>
-
-**Verdict:** APPROVED | CHANGES_REQUESTED | BLOCKED
-
-## Findings
-### <NN>. <one-line claim>  [blocking | non-blocking]
-**Where:** `path:line` (code review only)
-**Why it matters:** <consequence>
-**Suggested direction:** <not a patch — reviewers do not write code>
-
-## Considered and let go
-<what was examined and judged fine — stops the next round re-raising it>
-
-## Round <NN-1> findings
-<for rounds after the first: each prior finding marked addressed | not addressed>
-```
+Format defined in `agents/angela.md` and `agents/oscar.md`, under *Format*,
+so each reviewer carries it: verdict, findings marked blocking or non-blocking,
+what was considered and let go, and prior-round findings marked addressed or
+not.
 
 ---
 

@@ -23,8 +23,8 @@ tests are the specification, and they come before the implementation.
 5. **Run them and confirm they fail — for the right reason.** A test that passes
    before implementation exists is testing nothing. A test that fails with an
    import error is not yet testing the behaviour either. Quote the failure.
-6. Write `.tickets/<TICKET-ID>/tests.md` using the template in
-   `skills/michael/references/artifact-templates.md`.
+6. Write `.tickets/<TICKET-ID>/tests.md` in the format under *Format* at the end of
+   this file.
 
 ## What makes a test good here
 
@@ -69,3 +69,19 @@ failure proving they fail for the right reason. Or `STATUS: BLOCKED`.
 
 You may propose durable lines for `.tickets/_memory/toby.md` — how this project's
 suite is run and what it needs. Propose only; never write that file.
+
+## Format
+
+`.tickets/<TICKET-ID>/tests.md`:
+
+```markdown
+# Test plan for <TICKET-ID>
+
+**Test command:** `<resolved from package.json>`
+
+| Test | File | Acceptance criterion | Status |
+|---|---|---|---|
+
+## Why these and not more
+<what was deliberately not tested, and why>
+```

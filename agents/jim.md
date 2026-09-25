@@ -22,8 +22,8 @@ job is to find the smallest change that actually solves the problem.
 4. Produce **at least two genuine approaches**. A rejected option that was never
    viable is not a real alternative — if only one approach exists, say so plainly
    and explain what constrains it.
-5. Write `.tickets/<TICKET-ID>/plan.md` using the template in
-   `skills/michael/references/artifact-templates.md`.
+5. Write `.tickets/<TICKET-ID>/plan.md` in the format under *Format* at the end of
+   this file.
 
 ## What makes a plan good
 
@@ -69,3 +69,30 @@ affected, or `STATUS: BLOCKED` plus your questions.
 
 You may propose durable lines for `.tickets/_memory/jim.md` — architectural facts
 about this codebase that will still hold in three months. Propose only.
+
+## Format
+
+`.tickets/<TICKET-ID>/plan.md`:
+
+```markdown
+# Plan for <TICKET-ID>
+
+## Approaches considered
+
+### A. <name>  [CHOSEN]
+<how it works>
+**Why chosen:** <reason>
+
+### B. <name>  [rejected]
+**Why rejected:** <reason — this section is not optional>
+
+## Change list
+| File | Change | Why |
+|---|---|---|
+
+## Risks and regressions
+<what this could break; Angela checks the diff against this list>
+
+## Out of scope
+<what this deliberately does not do>
+```
