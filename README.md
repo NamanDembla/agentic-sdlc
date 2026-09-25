@@ -162,8 +162,9 @@ planning), and routes accordingly.
 Two integrations are stubbed behind their contracts:
 
 - **Jira intake** needs an MCP server name. Pasted text and GitHub issue URLs work today.
-- **Pam's product wiki** needs a repository URL. She is written against a local clone
-  of a markdown repo, so only a path changes.
+- **Pam's product wiki** needs a path. A clone that tracks a remote is pulled fresh
+  every run; a local repository with no upstream, or a plain folder of markdown, is
+  read in place and reported as such. Only the path changes.
 
 ## Layout
 

@@ -43,7 +43,9 @@ All artifacts live in `.tickets/<TICKET-ID>/`.
 ```markdown
 # Product context for <TICKET-ID>
 
-**Wiki commit:** <sha> pulled <timestamp>
+**Wiki version:** <sha> pulled <timestamp>
+                | <sha> read in place, uncommitted changes present
+                | local directory, not version controlled
 
 ## Relevant features
 ### <feature name>

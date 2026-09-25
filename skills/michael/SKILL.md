@@ -82,7 +82,9 @@ three-line summary (type, problem, deliverables) and move on.
 Dispatch `pam`. Prompt: ticket folder path, the wiki repo location, and the
 instruction to read `ticket.md`.
 
-Pam pulls the wiki's `main` fresh every run before reading anything.
+Pam establishes she is reading the current wiki before reading anything. A wiki
+that tracks a remote is pulled fresh every run; one that is a local repository
+with no upstream, or a plain directory, is read in place and reported as such.
 
 If the wiki location is unknown, ask the user once and record the answer in
 `decisions.md` so later tickets don't re-ask.
