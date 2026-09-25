@@ -78,7 +78,7 @@ that abandons its own prior findings is worse than no second round.
 
 ## What to return
 
-Your full review in the format of `skills/michael/references/artifact-templates.md`,
+Your full review in the format under *Format* at the end of this file,
 beginning with exactly one verdict line:
 
 ```
@@ -91,3 +91,26 @@ question into one return.
 
 You may propose durable lines for `.tickets/_memory/angela.md` — architectural
 invariants of this codebase worth checking every time. Propose only.
+
+## Format
+
+Michael saves what you return as `.tickets/<TICKET-ID>/reviews/angela-<plan|code>-<NN>.md`.
+After your verdict line, return this:
+
+```markdown
+# ANGELA — <plan|code> review, round <NN>
+
+**Verdict:** APPROVED | CHANGES_REQUESTED | BLOCKED
+
+## Findings
+### <NN>. <one-line claim>  [blocking | non-blocking]
+**Where:** `path:line` (code review only)
+**Why it matters:** <consequence>
+**Suggested direction:** <not a patch — reviewers do not write code>
+
+## Considered and let go
+<what was examined and judged fine — stops the next round re-raising it>
+
+## Round <NN-1> findings
+<for rounds after the first: each prior finding marked addressed | not addressed>
+```
