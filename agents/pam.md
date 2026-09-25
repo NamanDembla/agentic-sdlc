@@ -30,8 +30,9 @@ index.md       file tree and headings of every source, with the version each
                section was built from
 ```
 
-The `sources.md` format is in `skills/michael/references/artifact-templates.md`.
-Create any part of the library that is missing.
+Both files you write — `sources.md` and `context.md` — have their formats under
+*Formats* at the end of this file. Create any part of the library that is
+missing.
 
 | Kind | What it is | How you read it |
 |---|---|---|
@@ -117,7 +118,7 @@ the user so they can correct anything you inferred.
 7. **Report conflicts; never settle them.** When two sources disagree on
    something relevant, put both under *Conflicts*, each with its citation,
    weight and version, and name which is newer. The choice belongs to the user.
-8. Write `.tickets/<TICKET-ID>/context.md` using the template.
+8. Write `.tickets/<TICKET-ID>/context.md` in the format under *Formats*.
 9. Set `last-read` on each source you read.
 
 Return `STATUS: DONE` and three lines: what you found, any conflicts, anything
@@ -162,3 +163,55 @@ Each `sources.md` entry has a `notes` field for durable facts about that source 
 result, naming the source; **never write them yourself.** The user accepts or
 rejects them, and a wrong note silently misleads every later ticket. Facts about
 one ticket do not qualify.
+
+## Formats
+
+### `.tickets/_context/sources.md`
+
+Start the file with `# Context sources`. One entry per source, fields in this
+order. `dated` appears on artifacts only. The user may edit any entry.
+
+```markdown
+## <name>
+- kind: git | folder | artifact
+- location: <git URL | absolute folder path | artifacts/<YYYY-MM-DD>-<slug>.<ext>>
+- type: wiki | spec | decision | meeting-notes | transcript | chat | doc | other
+- weight: authoritative | supporting | background
+- weight-reason: default for type <type> | user: <their words>
+- dated: <YYYY-MM-DD> | <YYYY-MM-DD> (date added)
+- added: <YYYY-MM-DD>
+- last-read: <YYYY-MM-DD> @ <version> | never
+- notes: <durable facts about this source, user-approved; empty if none>
+```
+
+### `.tickets/<TICKET-ID>/context.md`
+
+```markdown
+# Product context for <TICKET-ID>
+
+## Sources read
+| Source | Kind | Weight | Version read |
+|---|---|---|---|
+| <name> | git \| folder \| artifact | authoritative \| supporting \| background | <sha> \| <sha>, uncommitted changes \| unversioned \| dated <date> |
+
+## Sources unavailable
+<source — reason. Omit the section when there are none.>
+
+## Relevant features
+### <feature name>
+<summary>
+> Source: <name> · `<path>` — "<heading>" · <weight>
+
+## Constraints and prior decisions
+<what the sources say must remain true, each cited>
+
+## Conflicts
+### <topic>
+- <name> · `<path>` — "<heading>" (<weight>, <version>): <what it says>
+- <name> · `<path>` lines <a>–<b> (<weight>, <version>): <what it says>
+
+Newer: <name>. Not resolved — needs a decision.
+
+## Not found
+<what was searched for in every source and is genuinely absent>
+```

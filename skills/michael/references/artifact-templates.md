@@ -41,61 +41,21 @@ which is shared by every ticket and lives in `.tickets/_context/`.
 
 ## context.md — PAM
 
-```markdown
-# Product context for <TICKET-ID>
-
-## Sources read
-| Source | Kind | Weight | Version read |
-|---|---|---|---|
-| <name> | git \| folder \| artifact | authoritative \| supporting \| background | <sha> \| <sha>, uncommitted changes \| unversioned \| dated <date> |
-
-## Sources unavailable
-<source — reason. Omit the section when there are none.>
-
-## Relevant features
-### <feature name>
-<summary>
-> Source: <name> · `<path>` — "<heading>" · <weight>
-
-## Constraints and prior decisions
-<what the sources say must remain true, each cited>
-
-## Conflicts
-### <topic>
-- <name> · `<path>` — "<heading>" (<weight>, <version>): <what it says>
-- <name> · `<path>` lines <a>–<b> (<weight>, <version>): <what it says>
-
-Newer: <name>. Not resolved — needs a decision.
-
-## Not found
-<what was searched for in every source and is genuinely absent — this matters>
-```
-
-Every claim carries a citation: source name, file path, and heading — or a line
-range for plain text — plus the source's weight. An uncited claim is a guess, and
-guesses are forbidden.
+Format defined in `agents/pam.md`, under *Formats*, so Pam carries it with her.
+In short: the sources read and their versions, sources unavailable, relevant
+features, constraints, conflicts between sources (reported, never settled), and
+what was not found. Every claim cites source name, file, and heading or line
+range, plus the source's weight.
 
 ---
 
 ## sources.md — PAM
 
-The context library's registry, at `.tickets/_context/sources.md`. One entry per
-source. Pam writes entries; the user may edit any of them.
-
-```markdown
-# Context sources
-
-## <name>
-- kind: git | folder | artifact
-- location: <git URL | absolute folder path | artifacts/<YYYY-MM-DD>-<slug>.<ext>>
-- type: wiki | spec | decision | meeting-notes | transcript | chat | doc | other
-- weight: authoritative | supporting | background
-- weight-reason: default for type <type> | user: <their words>
-- dated: <YYYY-MM-DD> | <YYYY-MM-DD> (date added)     # artifacts only
-- added: <YYYY-MM-DD>
-- last-read: <YYYY-MM-DD> @ <version> | never
-- notes: <durable facts about this source, user-approved; empty if none>
-```
+The context library's registry, at `.tickets/_context/sources.md`, shared by
+every ticket. Format defined in `agents/pam.md`, under *Formats*. One entry per
+source: kind (`git` | `folder` | `artifact`), location, type, weight
+(`authoritative` | `supporting` | `background`) and the reason for it, dates,
+and user-approved notes. The user may edit any entry.
 
 | Type | Default weight |
 |---|---|
