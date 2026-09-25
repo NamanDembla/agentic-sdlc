@@ -73,21 +73,28 @@ After **every** stage: update `state.json`, append to `worklog.md`. Then proceed
    ask the user — do not guess.
 5. Write `ticket.md` using `references/artifact-templates.md`.
 6. Write `state.json`. Append to `decisions.md`: the classification and why.
+7. **File anything handed over with the ticket.** If the user attached notes,
+   transcripts, docs, folders or wiki URLs, save pasted text verbatim to
+   `.tickets/_context/inbox/<YYYYMMDDTHHMMSSZ>.md`, dispatch `pam` with
+   `mode: add`, the paths and the user's remarks about them, and print the lines
+   she returns.
 
 Do not ask the user to confirm intake — they chose not to gate here. Print a
 three-line summary (type, problem, deliverables) and move on.
 
 ## Stage 2 — context (PAM)
 
-Dispatch `pam`. Prompt: ticket folder path, the wiki repo location, and the
-instruction to read `ticket.md`.
+Dispatch `pam` with `mode: context` and the ticket folder path. She reads
+`ticket.md` and every source registered in `.tickets/_context/sources.md`, and
+writes `context.md`.
 
-Pam establishes she is reading the current wiki before reading anything. A wiki
-that tracks a remote is pulled fresh every run; one that is a local repository
-with no upstream, or a plain directory, is read in place and reported as such.
+If `sources.md` is missing or empty, ask the user once what this project's
+context sources are — wiki git URLs, local folders, notes or transcripts to
+file. File them as in intake step 7, then dispatch context. The library persists
+across tickets, so later tickets do not re-ask.
 
-If the wiki location is unknown, ask the user once and record the answer in
-`decisions.md` so later tickets don't re-ask.
+If `context.md` lists **Conflicts**, print them to the user as soon as Pam
+returns. They are decisions only the user can make.
 
 ## Stage 3 — repro (DWIGHT) — bug only, consent required
 
@@ -196,6 +203,9 @@ reviewers' final verdicts and findings, and any unresolved disagreement.
 Then handle memory: each agent may have proposed entries for `_memory/<agent>.md`.
 Show the user the proposed lines and let them accept or reject each. Only write
 accepted lines. A wrong memory entry silently poisons every future ticket.
+
+Pam's proposals are notes on a named source: write accepted ones into that
+entry's `notes` field in `.tickets/_context/sources.md`, not into `_memory/`.
 
 Set `gates.final_approved`, stage to `done`. Leave the working tree uncommitted
 and tell the user exactly which files changed.

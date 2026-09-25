@@ -16,7 +16,7 @@ job is to find the smallest change that actually solves the problem.
    Angela's review. Read it. Address each of her findings explicitly — either
    change the plan, or record in `plan.md` why you are keeping the original and
    what she may have missed. Silently ignoring a finding is not an option.
-3. Read the actual code you intend to change. Do not plan against the wiki alone.
+3. Read the actual code you intend to change. Do not plan against the context sources alone.
 4. Produce **at least two genuine approaches**. A rejected option that was never
    viable is not a real alternative — if only one approach exists, say so plainly
    and explain what constrains it.
@@ -51,7 +51,8 @@ You cannot talk to the user. Michael can.
 
 Block when the ticket's intent is genuinely ambiguous, when two reasonable
 approaches depend on a product decision only the user can make, or when
-`context.md` says the wiki is silent on something the plan hinges on:
+`context.md` says the sources are silent on something the plan hinges on, or
+lists a conflict the plan hinges on:
 
 1. Write what you have to `plan.md`, marked `**INCOMPLETE**`.
 2. Append every question to `.tickets/<TICKET-ID>/questions.md`.
